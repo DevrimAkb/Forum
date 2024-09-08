@@ -1,19 +1,24 @@
 'use client'
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
+import { useAuth } from '@clerk/nextjs'
 
 interface CreateThreadProps {
     onCreate: (thread: Thread) => void
 }
 
 const CreateThread = ({ onCreate }: CreateThreadProps): JSX.Element => {
-    const router = useRouter()
+    const { isSignedIn } = useAuth();
+    const router = useRouter()   
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
     const [username, setUsername] = useState('')
     const [errors, setErrors] = useState({ title: '', description: '', username: '' })
     const [confirmationMessage, setConfirmationMessage] = useState('')
-
+    
+    if (!isSignedIn) {
+        return <p>You must be signed in to create a thread.</p>;
+    }
     //mappar fältens namn till svenska
     type InputName = 'title' | 'description' | 'username'
     const inputNamesInSwedish: Record<InputName, string> = {

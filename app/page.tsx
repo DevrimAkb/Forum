@@ -22,8 +22,7 @@ function Page() {
       <CreateThread onCreate={handleCreate}/>
       <div>
         {threads.map(thread => (
-          <ThreadCard key={thread.id} thread={thread}/>
-    
+          <ThreadCard key={thread.id} thread={thread}/>    
         ))}
       </div>
     
