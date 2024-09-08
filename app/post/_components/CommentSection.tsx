@@ -1,4 +1,5 @@
 "use client";
+import { useAuth, useUser } from '@clerk/nextjs';
 import React, { useState } from 'react';
 
 interface CommentSectionProps {
@@ -7,37 +8,37 @@ interface CommentSectionProps {
 }
 
 function CommentSection({ thread, onAddComment }: CommentSectionProps): JSX.Element {
+  const { isSignedIn } = useAuth();
+  const { user } = useUser();
   const [commentText, setCommentText] = useState("");
-  const [username, setUsername] = useState("");
-
+  
   const handleAddComment = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!commentText.trim() || !username.trim()) return;
+    if (!commentText.trim()) return;
 
     const newComment: Comment = {
       id: Date.now(),
-      username: username,
+      username: user?.username || `${user?.firstName} ${user?.lastName}` || 'Anonymous',
       content: commentText,
       createdAt: new Date().toISOString(),
     };
 
     onAddComment(newComment);
     setCommentText("");
-    setUsername("");
   };
+
+  if (!isSignedIn) {
+    return (
+      <div className="flex items-center justify-center p-20">
+        <p className="text-center text-2xl">You must be signed in to comment on this thread.</p>
+      </div>
+    );
+  }
 
   return (
     <div>
       <div className="">
         <form onSubmit={handleAddComment}>
-          <input
-            type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            className="w-full p-2 mb-2 rounded border-gray-300"
-            placeholder="Användarnamn"
-            required
-          />
           <textarea
             value={commentText}
             onChange={(e) => setCommentText(e.target.value)}
