@@ -1,20 +1,20 @@
-"use client";
-import { useAuth, useUser } from '@clerk/nextjs';
-import React, { useState } from 'react';
+"use client"
+import { useAuth, useUser } from '@clerk/nextjs'
+import React, { useState } from 'react'
 
 interface CommentSectionProps {
-  thread: Thread;
+  thread: Thread
   onAddComment: (comment: Comment) => void;
 }
 
 function CommentSection({ thread, onAddComment }: CommentSectionProps): JSX.Element {
-  const { isSignedIn } = useAuth();
-  const { user } = useUser();
-  const [commentText, setCommentText] = useState("");
-  
+  const { isSignedIn } = useAuth()
+  const { user } = useUser()
+  const [commentText, setCommentText] = useState("")
+
   const handleAddComment = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!commentText.trim()) return;
+    e.preventDefault()
+    if (!commentText.trim()) return
 
     const newComment: Comment = {
       id: Date.now(),
@@ -23,37 +23,38 @@ function CommentSection({ thread, onAddComment }: CommentSectionProps): JSX.Elem
       createdAt: new Date().toISOString(),
     };
 
-    onAddComment(newComment);
-    setCommentText("");
+    onAddComment(newComment)
+    setCommentText("")
   };
-
-  if (!isSignedIn) {
-    return (
-      <div className="flex items-center justify-center p-20">
-        <p className="text-center text-2xl">You must be signed in to comment on this thread.</p>
-      </div>
-    );
-  }
 
   return (
     <div>
-      <div className="">
-        <form onSubmit={handleAddComment}>
-          <textarea
-            value={commentText}
-            onChange={(e) => setCommentText(e.target.value)}
-            className="w-full p-2 rounded border-gray-300"
-            rows={3}
-            placeholder="Skriv en kommentar..."
-            required
-          />
-          <button type="submit"
-           className='bg-gray-600 text-white hover:bg-gray-700 rounded w-full my-4'>
-            Lägg till
-          </button>
-        </form>
-      </div>
-      
+      {!isSignedIn ? (
+        <div className="flex items-center justify-center p-20">
+          <p className="text-center text-2xl">You must be signed in to comment on this thread.</p>
+        </div>
+      ) : thread.locked ? (
+        <div className="flex items-center justify-center p-20">
+          <p className="text-center text-2xl">This thread is locked. No new comments can be added.</p>
+        </div>
+      ) : (
+        <div className="">
+          <form onSubmit={handleAddComment}>
+            <textarea
+              value={commentText}
+              onChange={(e) => setCommentText(e.target.value)}
+              className="w-full p-2 rounded border-gray-300"
+              rows={3}
+              placeholder="Skriv en kommentar..."
+              required
+            />
+            <button type="submit" className='bg-gray-600 text-white hover:bg-gray-700 rounded w-full my-4'>
+              Lägg till
+            </button>
+          </form>
+        </div>
+      )}
+
       {Array.isArray(thread.comments) && thread.comments.length > 0 ? (
         thread.comments.map((comment) => (
           <div key={comment.id} className="border-b p-2">
@@ -64,9 +65,8 @@ function CommentSection({ thread, onAddComment }: CommentSectionProps): JSX.Elem
       ) : (
         <p>Inga kommentarer än.</p>
       )}
-      
     </div>
-  );
+  )
 }
 
-export default CommentSection;
+export default CommentSection

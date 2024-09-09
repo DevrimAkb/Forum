@@ -5,6 +5,8 @@ type Thread = {
     username: string;
     creationDate: string;
     comments: Comment[];
+    type: 'QNA' | 'Regular'
+    locked: boolean
 }
 
 type Comment = {
