@@ -45,7 +45,7 @@ const CreateThread = ({ onCreate }: CreateThreadProps): JSX.Element => {
             id: Math.floor(Math.random() * 1000),
             title,
             description,
-            username: user?.fullName || 'Anonymous',
+            username: user?.fullName || user?.emailAddresses[0].emailAddress || 'Anonymous',
             creationDate: new Date().toLocaleString([], { year: '2-digit', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' }),
             comments: []
         };

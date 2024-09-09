@@ -57,7 +57,7 @@ function CommentSection({ thread, onAddComment }: CommentSectionProps): JSX.Elem
       {Array.isArray(thread.comments) && thread.comments.length > 0 ? (
         thread.comments.map((comment) => (
           <div key={comment.id} className="border-b p-2">
-            <p><strong>{comment.username}</strong>: {comment.content}</p>
+            <p className='text-purple-800'><strong>{comment.username}</strong>: {comment.content}</p>
             <p><small>{new Date(comment.createdAt).toLocaleDateString('en-GB', { day: '2-digit', month: '2-digit', year: '2-digit', hour: '2-digit', minute: '2-digit' })}</small></p>
           </div>
         ))
