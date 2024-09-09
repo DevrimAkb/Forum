@@ -18,7 +18,7 @@ function CommentSection({ thread, onAddComment }: CommentSectionProps): JSX.Elem
 
     const newComment: Comment = {
       id: Date.now(),
-      username: user?.username || `${user?.firstName} ${user?.lastName}` || 'Anonymous',
+      username: user?.fullName || user?.emailAddresses[0].emailAddress || 'Anonymous',
       content: commentText,
       createdAt: new Date().toISOString(),
     };
