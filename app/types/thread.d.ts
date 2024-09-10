@@ -5,9 +5,9 @@ type Thread = {
     username: string;
     creationDate: string;
     comments: Comment[];
-    type: 'QNA' | 'Regular'
-    locked: boolean
-}
+    locked: boolean;
+    type: 'Regular';
+};
 
 type Comment = {
     id: number;
@@ -15,3 +15,10 @@ type Comment = {
     content: string;
     createdAt: string;
 }
+
+type QNAThread = Thread & {
+    type: 'QNA';
+    isAnswered: boolean
+    acceptedAnswerId?: number
+};
+
