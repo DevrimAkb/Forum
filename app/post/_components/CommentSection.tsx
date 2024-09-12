@@ -61,7 +61,7 @@ function CommentSection({ thread, onAddComment, onMarkAsAnswer }: CommentSection
           <div key={comment.id} className="border-b p-2">
             <p className='text-purple-800'><strong>{comment.username}</strong>: {comment.content}</p>
             <p><small>{new Date(comment.createdAt).toLocaleDateString('en-GB', { day: '2-digit', month: '2-digit', year: '2-digit', hour: '2-digit', minute: '2-digit' })}</small></p>
-            {thread.type === 'QNA' && !thread.isAnswered && (
+            {thread.type === 'QNA' && !thread.isAnswered && thread.username === user?.username || thread.username === user?.emailAddresses[0].emailAddress && (
               <button
                 className='bg-blue-600 text-white hover:bg-blue-700 rounded my-2'
                 onClick={() => onMarkAsAnswer(comment.id)}
