@@ -103,7 +103,7 @@ const ThreadDetail = () => {
                         {post.locked ? 'Unlock Thread' : 'Lock Thread'}
                     </button>
                 ) : null}
-                <CommentSection thread={post} onAddComment={handleAddComment} onMarkAsAnswer={handleMarkAsAnswer} />
+                <CommentSection thread={post} onAddComment={handleAddComment} onMarkAsAnswer={handleMarkAsAnswer}/>
             </div>
         </div>
     );
