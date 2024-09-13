@@ -95,6 +95,13 @@ const ThreadDetail = () => {
                         {post.type}
                     </span>
                 </div>
+                <div className="flex flex-wrap justify-center mt-4 space-x-2">
+                    {post.tags.map(tag => (
+                        <span key={tag.id} className='bg-gray-200 rounded px-2 py-1'>
+                            {tag.name}
+                        </span>
+                    ))}
+                </div>
                 {user?.fullName === post.username || user?.emailAddresses[0].emailAddress === post.username ? (
                     <button
                         className='bg-gray-600 text-white hover:bg-gray-700 rounded w-full my-4'

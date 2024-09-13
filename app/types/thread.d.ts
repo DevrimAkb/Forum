@@ -7,6 +7,7 @@ type Thread = {
     comments: Comment[];
     locked: boolean;
     type: 'Regular';
+    tags: ThreadTag[]
 };
 
 type Comment = {
@@ -21,4 +22,9 @@ type QNAThread = Thread & {
     isAnswered: boolean
     acceptedAnswerId?: number
 };
+
+type ThreadTag = {
+    id: number;
+    name: string;
+}
 

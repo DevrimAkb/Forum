@@ -26,6 +26,13 @@ interface ThreadCardProps {
               {thread.type}
             </span>
           </div>
+          <div className="flex flex-wrap justify-center mt-4 space-x-2">
+              {thread.tags?.map(tag => (
+                   <span key={tag.id} className='bg-gray-200 rounded px-2 py-1'>
+                      {tag.name}
+                  </span>
+              )) || <span>No tags available</span>}
+          </div>
         </div>
       </div>
     )

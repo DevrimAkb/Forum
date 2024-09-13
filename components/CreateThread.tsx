@@ -14,6 +14,8 @@ const CreateThread = ({ onCreate }: CreateThreadProps): JSX.Element => {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [type, setType] = useState<'Regular' | 'QNA'>('Regular');
+    const [tags, setTags] = useState<string[]>([]);
+    const [tagInput, setTagInput] = useState('');
     const [errors, setErrors] = useState({ title: '', description: '' });
     const [confirmationMessage, setConfirmationMessage] = useState('');
 
@@ -48,6 +50,7 @@ const CreateThread = ({ onCreate }: CreateThreadProps): JSX.Element => {
             creationDate: new Date().toLocaleString([], { year: '2-digit', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' }),
             comments: [],
             type,
+            tags: tags.map((tag, index) => ({ id: index, name: tag })),
             ...(type === 'QNA' && { isAnswered: false })
         };
 
@@ -64,6 +67,8 @@ const CreateThread = ({ onCreate }: CreateThreadProps): JSX.Element => {
 
         setTitle('');
         setDescription('');
+        setTags([]);
+        setTagInput('');
         setErrors({ title: '', description: '' });
     };
 
@@ -72,6 +77,18 @@ const CreateThread = ({ onCreate }: CreateThreadProps): JSX.Element => {
         if (!errors.title && !errors.description) {
             router.push('/');
         }
+        setTags([])
+    };
+
+    const handleAddTag = () => {
+        if (tagInput.trim() && !tags.includes(tagInput.trim())) {
+            setTags([...tags, tagInput.trim()]);
+            setTagInput('');
+        }
+    };
+
+    const handleRemoveTag = (tagToRemove: string) => {
+        setTags(tags.filter(tag => tag !== tagToRemove));
     };
 
     return (
@@ -115,6 +132,28 @@ const CreateThread = ({ onCreate }: CreateThreadProps): JSX.Element => {
                             <option value='Regular'>Regular</option>
                             <option value='QNA'>QNA</option>
                         </select>
+                    </div>
+                    <div>
+                        <input
+                            className='rounded border border-gray-300'
+                            value={tagInput}
+                            placeholder='Add a tag'
+                            onChange={(e) => setTagInput(e.target.value)}
+                        />
+                        <button
+                            className='bg-gray-600 text-white hover:bg-gray-700 rounded w-full my-4'
+                            onClick={handleAddTag}
+                        >
+                            Add Tag
+                        </button>
+                        <div className='flex flex-wrap space-x-2'>
+                            {tags.map(tag => (
+                                <span key={tag} className='bg-gray-200 rounded px-2 py-1'>
+                                    {tag}
+                                    <button onClick={() => handleRemoveTag(tag)} className='ml-2 text-red-500'>x</button>
+                                </span>
+                            ))}
+                        </div>
                     </div>
                     <button
                         className='bg-gray-600 text-white hover:bg-gray-700 rounded w-full my-4'
