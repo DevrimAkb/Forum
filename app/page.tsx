@@ -24,7 +24,7 @@ function Page() {
   }
 
   const filteredThreads = threads.filter(thread =>
-    thread.tags?.some(tag => tag.name.toLowerCase().includes(searchTag.toLowerCase()))
+    searchTag === '' || thread.tags?.some(tag => tag.name.toLowerCase().includes(searchTag.toLowerCase()))
   );
 
   return (

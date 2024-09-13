@@ -7,7 +7,7 @@ type Thread = {
     comments: Comment[];
     locked: boolean;
     type: 'Regular';
-    tags: ThreadTag[]
+    tags?: ThreadTag[]
 };
 
 type Comment = {

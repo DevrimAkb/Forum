@@ -96,11 +96,15 @@ const ThreadDetail = () => {
                     </span>
                 </div>
                 <div className="flex flex-wrap justify-center mt-4 space-x-2">
-                    {post.tags.map(tag => (
+                    {post.tags?.length ? (
+                        post.tags.map(tag => (
                         <span key={tag.id} className='bg-gray-200 rounded px-2 py-1'>
                             {tag.name}
                         </span>
-                    ))}
+                        ))
+                    ) : (
+                        <span>No tags available</span>
+                    )}
                 </div>
                 {user?.fullName === post.username || user?.emailAddresses[0].emailAddress === post.username ? (
                     <button
