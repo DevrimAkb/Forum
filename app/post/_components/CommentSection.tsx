@@ -5,7 +5,7 @@ import React, { useState } from 'react'
 interface CommentSectionProps {
   thread: Thread | QNAThread;
   onAddComment: (comment: Comment) => void;
-  onMarkAsAnswer: (commentId: number) => void; // Add this prop
+  onMarkAsAnswer: (commentId: number) => void;
 }
 
 function CommentSection({ thread, onAddComment, onMarkAsAnswer }: CommentSectionProps): JSX.Element {

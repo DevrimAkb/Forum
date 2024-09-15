@@ -11,6 +11,8 @@ const ThreadDetail = () => {
     const { user } = useUser()
     const [post, setPost] = useState<Thread | QNAThread | null>(null)
 
+
+
     useEffect(() => {
         if (id) {
             const threads: Thread[] = JSON.parse(localStorage.getItem('threads') || '[]')
@@ -82,7 +84,7 @@ const ThreadDetail = () => {
 
     return (
         <>
-        <Navbar />
+        <Navbar onSearch={handleSearch}/>
         <div className="flex items-center justify-center m-8 text-black">
             <div className="w-full max-w-lg p-6 bg-white border rounded-xl shadow-lg space-y-4">
                 <div className="py-6">

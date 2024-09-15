@@ -22,7 +22,7 @@ const Navbar = ({ onSearch }: NavbarProps): JSX.Element => {
         <div>
           <Link href="/">Devvan</Link>
         </div>
-        <div className="flex">
+        <div className="flex gap-4">
           <input
             type="text"
             value={searchTerm}
