@@ -4,6 +4,7 @@ import { useParams } from "next/navigation"
 import { useEffect, useState } from 'react'
 import CommentSection from "./CommentSection"
 import { useUser } from "@clerk/nextjs"
+import Navbar from "@/components/Navbar"
 
 const ThreadDetail = () => {
     const { id } = useParams()
@@ -80,6 +81,8 @@ const ThreadDetail = () => {
     }
 
     return (
+        <>
+        <Navbar />
         <div className="flex items-center justify-center m-8 text-black">
             <div className="w-full max-w-lg p-6 bg-white border rounded-xl shadow-lg space-y-4">
                 <div className="py-6">
@@ -117,6 +120,7 @@ const ThreadDetail = () => {
                 <CommentSection thread={post} onAddComment={handleAddComment} onMarkAsAnswer={handleMarkAsAnswer}/>
             </div>
         </div>
+        </>
     );
 };
 
